@@ -1,4 +1,6 @@
 docker build -t news-bot .
+docker build -t my-app -f ./path/to/YourCustomDockerfile .
+docker build -t my-app .
 #!/bin/bash
 
 # Exit script if any command fails
