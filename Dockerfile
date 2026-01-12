@@ -1,5 +1,6 @@
 Run pip install --quiet -r requirements.txt
 # Use a lightweight Python base image
+import asyncio
 FROM python:3.10-slim
 
 # Set the working directory inside the container
