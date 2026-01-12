@@ -1,0 +1,50 @@
+docker build -t news-bot .
+#!/bin/bash
+
+# Exit script if any command fails
+set -e
+
+# Configuration
+IMAGE_NAME="news-bot"
+CONTAINER_NAME="news-bot-container"
+
+# 1. Check if the user provided a token
+if [ -z "$1" ]; then
+    echo "❌ Error: Missing Bot Token."
+    echo "Usage: ./deploy.sh <YOUR_TELEGRAM_BOT_TOKEN>"
+    exit 1
+fi
+
+TOKEN=$1
+
+echo "---------------------------------------"
+echo "🐳 Building Docker Image..."
+echo "---------------------------------------"
+docker build -t $IMAGE_NAME .
+
+# 2. Cleanup: Stop and remove existing container if it exists
+if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
+    echo "♻️  Found existing container. Stopping and removing..."
+    docker rm -f $CONTAINER_NAME
+fi
+
+echo "---------------------------------------"
+echo "🚀 Starting Bot Container..."
+echo "---------------------------------------"
+
+# 3. Run the container
+# -d: Detached mode (runs in background)
+# -p: Maps port 8080
+# -e: Injects the Token securely
+docker run -d \
+  --name $CONTAINER_NAME \
+  -p 8080:8080 \
+  -e TELEGRAM_BOT_TOKEN="$TOKEN" \
+  $IMAGE_NAME
+
+echo "✅ Bot is up and running!"
+echo "📝 Showing logs below (Press Ctrl+C to stop watching logs):"
+echo "---------------------------------------"
+
+# 4. Show logs immediately so you can see if it worked
+docker logs -f $CONTAINER_NAME
