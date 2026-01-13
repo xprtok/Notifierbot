@@ -14,7 +14,7 @@ logging.basicConfig(
 
 # --- Configuration ---
 # Remove 'os.environ.get' and use the string directly
-TOKEN = os.environ.get"8533775390:AAFKVMACsIswFhlCAIn4yX2dfAjHEL62qLk"
+token = os.environ.get"8533775390:AAFKVMACsIswFhlCAIn4yX2dfAjHEL62qLk"
 
 # Google News RSS Base URL
 RSS_BASE = "https://news.google.com/rss/search?q={}&hl=en-US&gl=US&ceid=US:en"
