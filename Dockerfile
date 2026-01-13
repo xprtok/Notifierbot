@@ -1,26 +1,25 @@
-Run pip install --quiet -r requirements.txt
-# Use a lightweight Python base image
+# Use an official lightweight Python image
+FROM python:3.10-slim
 
-# 1. Start with the base image (MUST BE FIRST)
-FROM python:3.10-slim-bookworm
+# Set the working directory inside the container
+WORKDIR /app
 
-# 2. Set the working directory
-WORKDIR /usr/src/app
-
-# 3. Install system dependencies (git, ffmpeg, etc.)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    ffmpeg \
-    git \
+# Install system dependencies (needed for tgcrypto/aiohttp optimization)
+RUN apt-get update && apt-get install -y \
+    gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# 4. Copy requirements and install Python packages
+# Copy requirements first to leverage Docker cache
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
 
-# 5. Copy the rest of the application
-COPY . .
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# 6. Start the bot
-CMD ["python3", "bot.py"]
+# Copy the rest of your bot code
+COPY bot.py .
+
+# Expose the port used by aiohttp (match the PORT variable in your python script)
+EXPOSE 8080
+
+# Command to run the bot
+CMD ["python", "bot.py"]
