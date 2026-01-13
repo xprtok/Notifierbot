@@ -65,10 +65,6 @@ async def stream_handler(request):
     # but here we use the main bot app to download chunks.
     async for chunk in app.stream_media(file_id):
         await resp.write(chunk)
-        try:
-        await collection.insert_one(file_data)
-    except:
-        pass
     
     return resp
 
