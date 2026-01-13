@@ -18,6 +18,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of your bot code
 COPY bot.py .
 
+# Add this environment variable to silence the root warning
+ENV PIP_ROOT_USER_ACTION=ignore
+
 # Expose the port used by aiohttp (match the PORT variable in your python script)
 EXPOSE 8080
 
