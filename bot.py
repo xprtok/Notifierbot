@@ -14,7 +14,6 @@ MONGO_URL = "mongodb+srv://pandaxleech:Noha9980@cluster0.zpmlqlx.mongodb.net/?ap
 CHANNEL_ID = -1003619964659 # Optional: Channel to store files for backup
 HOST = "0.0.0.0"
 PORT = 8080
-URL = "# Replace with YOUR actual Render link found on the dashboard
 URL = "https://notifierbot-6mw9.onrender.com" # The public URL of your server
 
 # --- DATABASE SETUP ---
