@@ -7,7 +7,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from aiohttp import web
 
 # --- CONFIGURATION (Loads from Environment Variables) ---
-API_ID = int(os.environ.get("API_ID", "12345678"))
+API_ID = int(os.environ.get("API_ID", "YOUR_API_ID"))
 API_HASH = os.environ.get("API_HASH", "YOUR_API_HASH")
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "YOUR_BOT_TOKEN")
 MONGO_URL = os.environ.get("MONGO_URL", "YOUR_MONGO_URL")
